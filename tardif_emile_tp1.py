@@ -12,7 +12,7 @@ else:
     print("Ce fichier est introuvable ou n'existe pas.")
     exit() # on ferme le programme si le fichier 
 
-small_fichier = open(fichier, "r") # ouvre un fichier (param1) en lecture (param2)
+# small_fichier = open(fichier, "r") # ouvre un fichier (param1) en lecture (param2)
 poids_small = os.path.getsize(fichier) / 1024 # obtient la taille du fichier en octet, on divise par 1024 pour l'avoir en Ko
 # print(small_fichier.read()) # on affiche le contenu du fichier
 
