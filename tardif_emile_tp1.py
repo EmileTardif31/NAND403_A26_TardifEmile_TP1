@@ -62,11 +62,11 @@ tableau.setColumnCount(len(tableau_choisi[0])) # set le nombre de colonnes en ch
 # set des noms aux colonnes
 tableau.setHorizontalHeaderLabels(tableau_choisi[0].keys())
 
-for ligne, i in enumerate(tableau_choisi):
-    for colonne, k in enumerate(i):
+for ligne, i in enumerate(tableau_choisi):             # sort chaque élément du tableau avec l'élément stocké en i
+    for colonne, k in enumerate(i):                    # sort chaque élément dans i stocké dans k
         tableau.setItem(ligne, colonne, QTableWidgetItem(str(i[k])))
 
-tableau.setSortingEnabled(True)
+tableau.setSortingEnabled(True) # debloque la fonction native de tri du tableau
 
 # tableau.setItem(0,0,QTableWidgetItem("Alice")) # set l'élément du tableau a la ligne 0, colonne 1, on lui donne la valeur "Alice"
 
@@ -76,7 +76,25 @@ tableau.setSortingEnabled(True)
 
 recherche = QLineEdit()
 recherche.setPlaceholderText("Rechercher...")
-# recherche.show()
+
+# fonction pour afficher / retirer le texte
+def update_search(texte):
+
+    for ligne, i in enumerate(tableau_choisi):
+        trouve = False
+        for element, k in enumerate(i):
+            if(trouve != True):
+                if texte.lower() in str(i[k]).lower():
+                    tableau.setRowHidden(ligne, False)
+                    trouve = True
+                elif texte == "":
+                    tableau.setRowHidden(ligne, False)
+                    print("recherche vide")
+                else:
+                    tableau.setRowHidden(ligne, True)
+
+
+recherche.textChanged.connect(update_search)
 
 # -- infos du fichier --
 infos = QLabel()
