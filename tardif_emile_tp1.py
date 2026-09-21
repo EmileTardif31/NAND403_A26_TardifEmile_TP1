@@ -23,10 +23,10 @@ large_fichier = open("data_large.json", "r") # on le stocke dans une variable qu
 
 # mais pour accéder aux variables il faut load le fichier
 
-with open("data_small.json", "r") as small_fichier:        # with permet de ouvrir et fermer le json sans avoir a mettre open au debut et close a la fin, et dans la fonction with on a acces au fichier ouvert
+with open("data_small.json", "r", encoding="utf-8") as small_fichier:        # with permet de ouvrir et fermer le json sans avoir a mettre open au debut et close a la fin, et dans la fonction with on a acces au fichier ouvert
     donnees_small = json.load(small_fichier) # il faut load le fichier dans une variable pour accéder aux données
 
-with open("data_large.json", "r") as large_fichier:
+with open("data_large.json", "r", encoding="utf-8") as large_fichier:
     donnees_large = json.load(large_fichier)
 
 # print(donnees_small) # retourne toutes les données
@@ -43,24 +43,16 @@ tableau_choisi = donnees_small # le tableau qu'on va afficher (on change la vale
 
 tableau.setRowCount(len(tableau_choisi)) # set le nombre de row en checkant le nombre de key dans le tableau
 tableau.setColumnCount(len(tableau_choisi[0])) # set le nombre de colonnes en checkant le nombre de variables dans la 1ere key (en assumant que toutes les key ont le meme nombre de variables)
+
 # set des noms aux colonnes
 tableau.setHorizontalHeaderLabels(tableau_choisi[0].keys())
 
-# for i in tableau_choisi:
-#     for k in i:
-#         #tableau.setItem(k,i,QTableWidgetItem(i[k]))
-#         print(k)
-#         print(i[k])
-#     # for k in range(len(i)):
-#     #     tableau.setItem(0,k,QTableWidgetItem("Alice"))
-#     #     print(i)
-
 for ligne, i in enumerate(tableau_choisi):
     for colonne, k in enumerate(i):
-        tableau.setItem(ligne, colonne, QTableWidgetItem(i[k]))
+        tableau.setItem(ligne, colonne, QTableWidgetItem(str(i[k])))
 
 # tableau.setItem(0,0,QTableWidgetItem("Alice")) # set l'élément du tableau a la ligne 0, colonne 1, on lui donne la valeur "Alice"
 
 tableau.show()
 
-sys.exit(app.exec())
+sys.exit(app.exec()) # -- empêche la suite du code de s'exécuter tant qu'on a pas fermé la fenêtre
